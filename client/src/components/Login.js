@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {useHistory} from 'react-router-dom'
-import {axiosWithAuth} from '../utils/axiosWithAuth.js'
+//import {axiosWithAuth} from '../utils/axiosWithAuth.js'
+import axios from 'axios'
 
 const blankForm = {
   username: '',
@@ -14,13 +15,13 @@ const Login = () => {
   // make a post request to retrieve a token from the api
   const userLogin = e => {
     e.preventDefault()
-    axiosWithAuth()
-      .post('/api/login', credentials)
+    axios
+      .post('http://localhost:4000/api/login', credentials)
       .then(res => {
         console.log(res)
         window.localStorage.setItem('token', res.data.payload)
         // when you have handled the token, navigate to the BubblePage route
-        history.push('/bubble-page')
+        setTimeout(() => {history.push('/bubble-page')},1500)
       })
       .catch(err => console.log(err))
   } 
